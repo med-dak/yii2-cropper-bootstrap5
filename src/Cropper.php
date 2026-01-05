@@ -84,7 +84,7 @@ class Cropper extends InputWidget
      */
     public $template = '{button} {preview}';
 
-    public function init()
+    public function init():void
     {
         parent::init();
 
