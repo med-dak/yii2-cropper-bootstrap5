@@ -89,7 +89,7 @@ if ($cropperOptions['preview'] !== false) {
         .'</div>'
     ;
 } else {
-    $previewContent = Html::img(null, ['class' => 'd-none', 'id' => 'cropper-image-'.$uniqueId]);
+    $previewContent = Html::tag('img', '', ['class' => 'd-none', 'id' => 'cropper-image-'.$uniqueId, 'src' => '']);
 }
 
 
@@ -163,20 +163,20 @@ if ($cropperOptions['preview'] !== false) {
         cursor: inherit;
         display: block;
     }
-    #cropper-modal-'.$uniqueId.' .input-group .input-group-addon {
+    #cropper-modal-'.$uniqueId.' .input-group .input-group-text {
         border-radius: 0;
         border-color: #d2d6de;
         background-color: #efefef;
         color: #555;
     }
-    #cropper-modal-'.$uniqueId.' .height-warning.has-success .input-group-addon,
-    #cropper-modal-'.$uniqueId.' .width-warning.has-success .input-group-addon{
+    #cropper-modal-'.$uniqueId.' .height-warning.has-success .input-group-text,
+    #cropper-modal-'.$uniqueId.' .width-warning.has-success .input-group-text{
         background-color: #00a65a;
         border-color: #00a65a;
         color: #fff;
     }
-    #cropper-modal-'.$uniqueId.' .height-warning.has-error .input-group-addon,
-    #cropper-modal-'.$uniqueId.' .width-warning.has-error .input-group-addon{
+    #cropper-modal-'.$uniqueId.' .height-warning.has-error .input-group-text,
+    #cropper-modal-'.$uniqueId.' .width-warning.has-error .input-group-text{
         background-color: #dd4b39;
         border-color: #dd4b39;
         color: #fff;
@@ -185,15 +185,14 @@ if ($cropperOptions['preview'] !== false) {
 
 
 <?php
-$modal = $this->render('modal', [
+$imageUrlJs = \yii\helpers\Json::encode($imageUrl);
+
+echo $this->render('modal', [
     'unique' => $uniqueId,
     'cropperOptions' => $cropperOptions,
 ]);
 
-
 $this->registerJs(<<<JS
-
-    $('body').prepend('$modal');
 
     var options_$uniqueId = {
         croppable: false,
@@ -292,7 +291,7 @@ $this->registerJs(<<<JS
     
     
     
-    var imageUrl_$uniqueId = '$imageUrl';
+    var imageUrl_$uniqueId = $imageUrlJs;
     var setElement_$uniqueId = function(src) {
         options_$uniqueId.element.modal.find('.modal-body > div').html('<img src="' + src + '" id="cropper-image-$uniqueId">');
         options_$uniqueId.element.image = $('#cropper-image-$uniqueId'); 
@@ -310,9 +309,10 @@ $this->registerJs(<<<JS
         options_$uniqueId.croppable = false;
         options_$uniqueId.element.image.cropper('destroy');
         options_$uniqueId.element.modal.find('.width-warning, .height-warning').removeClass('has-success').removeClass('has-error');        
-        if (!options_$uniqueId.element.modal.hasClass('in')) {
+        if (!options_$uniqueId.element.modal.hasClass('show')) {
             setElement_$uniqueId(_val);
-            options_$uniqueId.element.modal.modal('show'); 
+            var bsModal_$uniqueId = bootstrap.Modal.getOrCreateInstance(options_$uniqueId.element.modal[0]);
+            bsModal_$uniqueId.show();
         }
         
     });
@@ -346,7 +346,7 @@ $this->registerJs(<<<JS
 
     options_$uniqueId.button.crop.click(function() { setCrop$uniqueId(); });
     options_$uniqueId.button.close.click(function() { setCrop$uniqueId(); });
-    $('[data-target="#cropper-modal-$uniqueId"]').click(function() {
+    $('[data-bs-target="#cropper-modal-$uniqueId"]').click(function() {
         var src_$uniqueId = $('#cropper-modal-$uniqueId').find('.modal-body').find('img').attr('src');        
         if (src_$uniqueId === '') {
             options_$uniqueId.input.crop.click();

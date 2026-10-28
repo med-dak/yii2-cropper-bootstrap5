@@ -11,7 +11,7 @@ use yii\web\View;
  */
 class CropperBeginAsset extends AssetBundle
 {
-    public $sourcePath = '@jalloulkhaled/cropper/assets';
+    public $sourcePath = __DIR__ . '/assets';
     public $jsOptions = ['position' => View::POS_BEGIN];
     public $css = [
         'cropper.css',

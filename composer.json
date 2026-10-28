@@ -1,8 +1,8 @@
 {
   "name": "jalloulkhaled/yii2-cropper-bootstrap5",
-  "description": "Yii2 Bootstrap Cropper Input Widget using bootstrap 5",
+  "description": "Yii2 Bootstrap Cropper Input Widget using Bootstrap 5",
   "type": "yii2-extension",
-  "keywords": ["yii2","extension","cropper","widget"],
+  "keywords": ["yii2", "extension", "cropper", "widget"],
   "license": "MIT",
   "authors": [
     {
@@ -12,10 +12,13 @@
     }
   ],
   "minimum-stability": "dev",
-  "prefer-stable": true,  
+  "prefer-stable": true,
   "require": {
-    "yiisoft/yii2": "~2.0.45",
-    "twbs/bootstrap": "^5.0.3"
+    "php": ">=8.3",
+    "yiisoft/yii2": "^22.0@dev",
+    "yiisoft/yii2-bootstrap5": "^22.0@dev",
+    "npm-asset/bootstrap": "^5.3",
+    "npm-asset/jquery": "^3.7"
   },
   "autoload": {
     "psr-4": {
@@ -26,5 +29,11 @@
     "branch-alias": {
       "dev-master": "1.0.x-dev"
     }
-  }  
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }

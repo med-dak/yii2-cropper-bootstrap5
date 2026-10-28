@@ -11,7 +11,7 @@ use yii\web\View;
  */
 class CropperAsset extends AssetBundle
 {
-    public $sourcePath = '@jalloulkhaled/cropper/assets';
+    public $sourcePath = __DIR__ . '/assets';
     public $css = [
         'cropper.css',
     ];

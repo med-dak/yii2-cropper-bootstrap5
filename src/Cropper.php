@@ -7,7 +7,6 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\bootstrap5\InputWidget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\StringHelper;
 use yii\web\View;
 
 /**
@@ -132,7 +131,7 @@ class Cropper extends InputWidget
 
     private function setCropperOptions()
     {
-        $options = $this->cropperOptions;
+        $options = (array) $this->cropperOptions;
 
         if (!isset($options['width']) && !isset($options['height'])) {
             throw new InvalidConfigException(Yii::t('cropper', 'Either "cropWidth" and "cropHeight" properties must be specified.'));
@@ -226,7 +225,9 @@ class Cropper extends InputWidget
     {
         $label = $this->label;
         if ($label === null || (is_bool($label) && $label)) {
-            $label = $this->model->getAttributeLabel($this->attribute);
+            $label = $this->model !== null
+                ? $this->model->getAttributeLabel($this->attribute)
+                : $this->attribute;
         }
 
         $this->label = $label;

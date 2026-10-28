@@ -15,7 +15,7 @@ $closeLabel = $cropperOptions['icons']['close'] . ' ' . Yii::t('strings', 'cropp
 $cropWidth = $cropperOptions['width'];
 $cropHeight = $cropperOptions['height'];
 
-echo '<div class="modal fade" tabindex="-1" role="dialog" id="cropper-modal-'. $unique .'">'
+echo '<div class="modal fade" tabindex="-1" role="dialog" id="cropper-modal-'. $unique .'" data-bs-backdrop="static" aria-labelledby="modalLabel-'. $unique .'" aria-hidden="true">'
     .'<div class="modal-dialog modal-lg" role="document">'
     .'<div class="modal-content">'
     .'<div class="modal-header">'
