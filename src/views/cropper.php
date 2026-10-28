@@ -89,7 +89,7 @@ if ($cropperOptions['preview'] !== false) {
         .'</div>'
     ;
 } else {
-    $previewContent = Html::tag('img', '', ['class' => 'd-none', 'id' => 'cropper-image-'.$uniqueId, 'src' => '']);
+    $previewContent = Html::tag('img', '', ['class' => 'd-none', 'id' => 'cropper-image-'.$uniqueId]);
 }
 
 
@@ -293,12 +293,15 @@ $this->registerJs(<<<JS
     
     var imageUrl_$uniqueId = $imageUrlJs;
     var setElement_$uniqueId = function(src) {
+        if (!src) {
+            return;
+        }
         options_$uniqueId.element.modal.find('.modal-body > div').html('<img src="' + src + '" id="cropper-image-$uniqueId">');
         options_$uniqueId.element.image = $('#cropper-image-$uniqueId'); 
         options_$uniqueId.element._image = document.getElementById('cropper-image-$uniqueId');
     };    
     // if imageUrl is set    
-    if (imageUrl_$uniqueId !== '') {
+    if (imageUrl_$uniqueId) {
         setElement_$uniqueId(imageUrl_$uniqueId);        
     }
     // when set imageSrc directly from out 
@@ -317,7 +320,7 @@ $this->registerJs(<<<JS
         
     });
     options_$uniqueId.element.modal.on('shown.bs.modal', function() {        
-        if (imageUrl_$uniqueId !== '') {
+        if (imageUrl_$uniqueId) {
             // cropper start
             options_$uniqueId.element.modal.find('.modal-body img').cropper(cropper_options_$uniqueId);
             imageUrl_$uniqueId = '';
