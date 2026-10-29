@@ -70,7 +70,7 @@ if ($cropperOptions['preview'] !== false) {
     $visiblePreview = in_array($userImage, [null, ''])?  'invisible' : 'visible';
     /*override End*/
 
-    $previewImage = Html::img($src, ['id' => 'cropper-image-'.$uniqueId, 'style' => "width: $previewWidth; height: $previewHeight;"]);
+    $previewImage = Html::img($src, ['id' => 'cropper-preview-'.$uniqueId, 'style' => "width: $previewWidth; height: $previewHeight;"]);
     /*override Here => this field*/
     $previewContent = '<div class="cropper-preview-wrapper">'
         .'<div class="cropper-container clearfix '.$visiblePreview.'">' .
@@ -89,7 +89,7 @@ if ($cropperOptions['preview'] !== false) {
         .'</div>'
     ;
 } else {
-    $previewContent = Html::tag('img', '', ['class' => 'd-none', 'id' => 'cropper-image-'.$uniqueId]);
+    $previewContent = Html::tag('img', '', ['class' => 'd-none', 'id' => 'cropper-preview-'.$uniqueId]);
 }
 
 
@@ -338,7 +338,7 @@ $this->registerJs(<<<JS
             width: options_$uniqueId.data.cropWidth,
             height: options_$uniqueId.data.cropHeight
         });               
-        options_$uniqueId.element.result.html('<img src="' + options_$uniqueId.croppedCanvas.toDataURL() + '" id="cropper-image-$uniqueId">');        
+        options_$uniqueId.element.result.html('<img src="' + options_$uniqueId.croppedCanvas.toDataURL() + '" id="cropper-preview-$uniqueId">');     
         options_$uniqueId.input.model.attr('type', 'text');        
         options_$uniqueId.input.model.val(options_$uniqueId.croppedCanvas.toDataURL());
         
